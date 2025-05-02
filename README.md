@@ -22,6 +22,7 @@ The token:
 - **Deployed Address**: `0x5f369B7026B69a54EC437cf294C8e4e68a406060`
 - **Block Explorer**: [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x5f369B7026B69a54EC437cf294C8e4e68a406060)
 - **Block**: 8,237,587
+- ✅ **Verified Source Code** on Etherscan ✅
 
 ---
 
