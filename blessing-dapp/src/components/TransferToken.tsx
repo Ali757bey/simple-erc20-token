@@ -4,57 +4,77 @@ import { useState } from 'react'
 import { useWriteContract, useAccount } from 'wagmi'
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../lib/contract'
 import { parseUnits } from 'ethers'
+import { toast } from 'react-hot-toast'
 
 export default function TransferToken() {
-    const { address, isConnected } = useAccount()
+    const { isConnected } = useAccount()
     const [recipient, setRecipient] = useState('')
     const [amount, setAmount] = useState('')
 
-    const { writeContract, isPending, isSuccess } = useWriteContract()
+    const {
+        writeContract,
+        isPending,
+        isSuccess,
+    } = useWriteContract()
 
-    const handleTransfer = () => {
-        if (!recipient || !amount) return
+    const handleTransfer = async () => {
+        if (!recipient || !amount) {
+            toast.error('Please fill in all fields.')
+            return
+        }
 
-        writeContract({
-            address: CONTRACT_ADDRESS,
-            abi: CONTRACT_ABI,
-            functionName: 'transfer',
-            args: [recipient, parseUnits(amount, 18)], // adjust for decimals
-        })
+        try {
+            await writeContract({
+                address: CONTRACT_ADDRESS,
+                abi: CONTRACT_ABI,
+                functionName: 'transfer',
+                args: [recipient, parseUnits(amount, 18)],
+            })
+            toast.success('✅ Transfer submitted!')
+            setRecipient('')
+            setAmount('')
+        } catch (err) {
+            toast.error('❌ Transfer failed. Please check input or wallet.')
+        }
     }
 
     if (!isConnected) return null
 
     return (
-        <div className="mt-6 bg-gray-100 p-4 rounded w-full max-w-md">
-            <h2 className="text-lg font-semibold mb-2">Transfer Tokens</h2>
+        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow mt-8">
+            <h2 className="text-xl font-semibold mb-4 text-center">Transfer Tokens</h2>
 
-            <input
-                type="text"
-                placeholder="Recipient Address"
-                className="w-full mb-2 p-2 border border-gray-300 rounded"
-                value={recipient}
-                onChange={(e) => setRecipient(e.target.value)}
-            />
+            <div className="mb-3">
+                <input
+                    type="text"
+                    placeholder="Recipient Address"
+                    className="w-full px-4 py-2 border border-gray-300 rounded"
+                    value={recipient}
+                    onChange={(e) => setRecipient(e.target.value)}
+                />
+            </div>
 
-            <input
-                type="text"
-                placeholder="Amount"
-                className="w-full mb-2 p-2 border border-gray-300 rounded"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-            />
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Amount"
+                    className="w-full px-4 py-2 border border-gray-300 rounded"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                />
+            </div>
 
             <button
                 onClick={handleTransfer}
                 disabled={isPending}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+                className={`w-full py-2 px-4 rounded font-semibold text-white transition ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+                    }`}
             >
                 {isPending ? 'Sending...' : 'Send Tokens'}
             </button>
 
             {isSuccess && (
-                <p className="text-green-600 mt-2">✅ Transfer successful!</p>
+                <p className="text-green-600 text-center mt-2">✅ Transfer successful!</p>
             )}
         </div>
     )

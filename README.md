@@ -3,17 +3,48 @@
 ![Foundry](https://img.shields.io/badge/Build-Foundry-orange)
 ![Status](https://img.shields.io/badge/Status-Deployed-success)
 
-A professional ERC-20 token smart contract project built using Solidity, Foundry, and OpenZeppelin standards.
+A professional ERC-20 token smart contract project built using **Solidity, Foundry, RainbowKit** and **Tailwind CSS**. This repo showcases both smart contract fundamentals and a connected dApp frontend.
 
 ---
 
 ## Overview 
 
-This project implements a basic, gas-optimized ERC-20 token called **Blessings (BLSS)** using OpenZeppelin libraries and scripted/deployed with Foundry.
+This project implements a professional, gas-optimized ERC-20 token called **Blessings (BLSS)**. It includes:
 
-The token:
-- Mints a fixed total supply at deployment.
-- Allows standard ERC-20 transfers between addresses.
+- A smart contract deployed on the **Sepolia testnet**
+- A frontend **wallet-connected dApp**
+- Foundry test suite for core contract functionality
+
+---
+
+## Features
+
+- Fixed supply ERC-20 token using OpenZeppelin
+- Fully modular deployment via Foundry scripts
+- Secure wallet signing with cast wallet
+- On-chain contract verification (Etherscan + Sourcify)
+- Frontend dApp: view balance, transfer tokens, connect wallet
+
+---
+
+## Wallet Security
+
+This project uses Foundry’s **keystore-based** cast wallet, avoiding the need to store .env private keys.
+To safely import your wallet:
+
+```bash
+cast wallet import <yourWallet> --interactive
+```
+
+---
+
+## Project Purpose
+
+- Build experience in **professional Solidity** development practices.
+- Learn secure deployment practices (scripted, modular, verifiable).
+- Reinforce **best practices** with Foundry testing and gas optimization.
+- Bridge smart contracts with a **wallet-aware frontend**.
+- Showcase skills in a real-world portfolio-ready project.
 
 ---
 
@@ -21,57 +52,64 @@ The token:
 
 - **Deployed Address**: `0x5f369B7026B69a54EC437cf294C8e4e68a406060`
 - **Block Explorer**: [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x5f369B7026B69a54EC437cf294C8e4e68a406060)
-- **Block**: 8,237,587
 - ✅ **Verified Source Code** on Etherscan ✅
-
----
-
-## Features
-
-- Fixed supply ERC-20 token using OpenZeppelin
-- Fully modular deploy via Foundry `script/` setup
-- Dynamic environment config via `HelperConfig.s.sol`
-- Secure wallet handling using `cast wallet` (no .env private keys)
-- On-chain contract verification via Sourcify
-
----
-
-## Technologies Used
-
-- **Solidity** ^0.8.23
-- **Foundry** (Forge, Anvil)
-- **OpenZeppelin Contracts**
-- **Git / GitHub** for version control
-
----
-
-## Project Purpose
-
-- Build experience in professional Solidity development practices.
-- Learn and apply best practices for writing, testing, and deploying smart contracts.
-- Prepare for advanced blockchain development projects (DeFi, NFTs, Layer 2s).
-- Serve as a portfolio piece demonstrating end-to-end smart contract deployment and verification
+- **Block**: 8,237,587
+- Total Supply: 1000 BLSS
 
 ---
 
 ## Testing Approach
 
-  Includes a full Foundry test suite:
-  - Positive tests (token name, symbol, supply, transfers)
-  - Negative test (transfer fails when balance is too low)
-
 Tests are written using the **Arrange - Act - Assert** pattern with Foundry cheatcodes:
 
-- `makeAddr()` to simulate test address
-- `vm.expectRevert()` to catch expected transaction failures
-- *(Planned for future projects: use of `vm.prank()` for multi-user simulations)*
+- `forge test` for Solidity-based testing
+- `makeAddr()` for address mocking
+- `vm.expectRevert()` to handle failure scenarios
 
-Run all tests with: 
+Test suite includes: 
+
+- Token name and symbol validation
+- Total supply check
+- Transfer success and failure tests (insufficient balance)
+
+Run tests with: 
 
 ```bash
 forge test
 ```
-All test should pass with 0 warnings.
+
+---
+
+## Frontend dApp
+
+A wallet-aware dApp built with: 
+- **Next.js (App Router)**
+- **Tailwind CSS**
+- **RainbowKit + Wagmi v2**
+- Live token balance + transfer interaction
+- Loading indicators and success/error toasts
+
+### How to Run Locally
+
+```bash
+cd blessing-dapp
+npm install
+npm run dev
+```
+View in browser at: `http://localhost:3000`
+
+---
+
+##  Technologies Used
+
+| Category         | Stack                                    |
+| ---------------- | ---------------------------------------- |
+| Smart Contracts  | Solidity, Foundry, OpenZeppelin          |
+| Frontend         | Next.js, Tailwind CSS, Wagmi, RainbowKit |
+| Deployment Tools | Anvil, cast wallet, Sourcify, Etherscan  |
+| Testing          | Forge, Cheatcodes, vm tools              |
+| Version Control  | Git, GitHub                              |
+
 
 ---
 
@@ -100,26 +138,18 @@ forge script script/DeployMyToken.s.sol --rpc-url $SEPOLIA_RPC_URL --account <yo
 ---
 
 ## Next Steps (Future Enhancements)
-- Build a basic frontend using React + Ethers.js
-- Expand token with burn/mint/permit functionality
-- Add roles/permissions with OpenZeppelin's `AccessControl`
-- Build a frontend dApp to interact with Blessing Token
+- Add mint/burn roles with AccessControl
+- Implement token permit (EIP-2612)
+- Deploy dApp to Vercel or Netlify
+- Build mobile support via RainbowKit or React Native
+- Add unit tests for frontend hooks + state
 
 ---
-
-## Developer Notes
-
-To securely sign and deploy contracts, this project uses Foundry's local wallet system instead of storing private keys in `.env`.
-
-You can import a wallet interactively using:
-
-```bash
-cast wallet import <yourWallet> --interactive
-```
 
 ## About the Developer
 Built by **Isaiah (Ali) Fletcher** 
 
 Focused on professional-grade Solidity, Blockchain, and DevOps development.
+Exploring professional Web3 development through real world builds.
 
 ---

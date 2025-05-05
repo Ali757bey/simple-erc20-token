@@ -36,30 +36,36 @@ export default function Home() {
   }) as { data: bigint }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-10 bg-white">
-      <h1 className="text-3xl font-bold mb-2">Blessing Token dApp</h1>
-
-      <p className="mb-1 text-gray-600">
-        Token Name: {isLoading ? 'Loading...' : String(tokenName)}
-      </p>
-      <p className="mb-1 text-gray-600">
-        Symbol: {String(tokenSymbol)}
-      </p>
-      <p className="mb-6 text-gray-600">
-        Total Supply: {totalSupply ? formatUnits(totalSupply, 18) : '...'}
-      </p>
-
-      {isConnected && (
-        <p className="mb-6 text-gray-600">
-          Your Balance: {balance ? formatUnits(balance, 18) : '...'} BLSS
-        </p>
-      )}
+    <main className="min-h-screen px-4 py-10 flex flex-col items-center bg-white">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+        Blessing Token dApp
+      </h1>
 
       {!isConnected && (
         <p className="mb-4 text-gray-500">
           Connect your wallet to see your BLSS balance.
         </p>
       )}
+
+      <div className="w-full max-w-md bg-gray-100 p-4 rounded shadow mb-6 text-center">
+        <p className="mb-1 text-gray-600">
+          Token Name: {isLoading ? 'Loading...' : String(tokenName)}
+        </p>
+        <p className="mb-1 text-gray-600">
+          Symbol: {String(tokenSymbol)}
+        </p>
+        <p className="mb-1 text-gray-600">
+          Total Supply: {totalSupply ? formatUnits(totalSupply, 18) : '...'}
+        </p>
+        {isConnected && (
+          <p className="text-gray-600">
+            Your Balance:{' '}
+            {balance === undefined
+              ? 'Loading...'
+              : `${formatUnits(balance, 18)} BLSS`}
+          </p>
+        )}
+      </div>
 
       <ConnectButton />
       <TransferToken />
