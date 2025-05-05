@@ -15,7 +15,7 @@ import React from 'react'
 // This config connects to Sepolia via WalletConnect with demo ID
 const config = getDefaultConfig({
     appName: 'Blessing Token dApp',
-    projectId: 'demo', // Optional: use your WalletConnect ID
+    projectId: 'demo',
     chains: [sepolia],
     ssr: true
 })
@@ -26,13 +26,13 @@ const queryClient = new QueryClient()
 // WalletProvider wraps your app in the RainbowKit + Wagmi providers
 export function WalletProvider({ children }: { children: React.ReactNode }) {
     return (
-        <WagmiProvider config= { config } >
-        <QueryClientProvider client={ queryClient }>
-            <RainbowKitProvider>
-            { children }
-            </RainbowKitProvider>
+        <WagmiProvider config={config} >
+            <QueryClientProvider client={queryClient}>
+                <RainbowKitProvider>
+                    {children}
+                </RainbowKitProvider>
             </QueryClientProvider>
-            </WagmiProvider>
+        </WagmiProvider>
     )
 }
 

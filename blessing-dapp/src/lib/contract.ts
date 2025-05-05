@@ -1,5 +1,3 @@
-import { sepolia } from 'wagmi/chains'
-
 export const CONTRACT_ADDRESS = '0x5f369B7026B69a54EC437cf294C8e4e68a406060'
 
 export const CONTRACT_ABI = [

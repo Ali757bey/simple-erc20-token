@@ -34,6 +34,7 @@ export default function TransferToken() {
             setRecipient('')
             setAmount('')
         } catch (err) {
+            console.error(err)
             toast.error('❌ Transfer failed. Please check input or wallet.')
         }
     }
