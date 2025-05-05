@@ -58,6 +58,12 @@ cast wallet import <yourWallet> --interactive
 
 ---
 
+## Live dApp
+
+[Access the Blessing Token dApp](https://blessing-dapp.vercel.app)
+
+---
+
 ## Testing Approach
 
 Tests are written using the **Arrange - Act - Assert** pattern with Foundry cheatcodes:
